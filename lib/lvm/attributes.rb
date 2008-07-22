@@ -6,6 +6,16 @@ module LVM
 
     def load(version, name)
       cwd = File.dirname(__FILE__)
+
+      # was going to be symlinks, but rubygems didn't seem to want to package
+      # them
+      case version
+      when "2.02.28"
+        version = "2.02.27"
+      when (31..39).map { |x| "2.02.#{x}" } 
+        version = "2.02.30"
+      end
+
       file = File.join(cwd, "attributes", version, name)
 
       return YAML.load_file(file)
