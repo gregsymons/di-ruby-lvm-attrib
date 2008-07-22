@@ -1,0 +1,4 @@
+= to do
+
+== 0.1.0
+* attribute generation should be a proper class with a binary invoking it 
