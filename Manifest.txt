@@ -15,7 +15,6 @@ lib/lvm/attributes/2.02.27/lvsseg.yaml
 lib/lvm/attributes/2.02.27/pvs.yaml
 lib/lvm/attributes/2.02.27/pvsseg.yaml
 lib/lvm/attributes/2.02.27/vgs.yaml
-lib/lvm/attributes/2.02.28
 lib/lvm/attributes/2.02.29/lvs.yaml
 lib/lvm/attributes/2.02.29/lvsseg.yaml
 lib/lvm/attributes/2.02.29/pvs.yaml

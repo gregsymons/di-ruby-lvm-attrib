@@ -1,7 +1,7 @@
 = ruby-lvm-attrib
 
 * http://ruby-lvm-attrib.rubyforge.org
-* mailto:matt@bravenet.com
+* mailto:mkent@magoazul.com
 
 == DESCRIPTION:
 
@@ -10,6 +10,9 @@ source code and broken down by version.
 
 At their core these files exist to determine which arguments to pass
 lvs/vgs/pvs and the subsequent type conversions.
+
+Currently this is split from the main ruby-lvm gem since these files require
+updating to follow LVM2 releases.
 
 == FEATURES/PROBLEMS:
 
