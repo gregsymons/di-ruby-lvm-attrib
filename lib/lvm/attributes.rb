@@ -9,10 +9,9 @@ module LVM
 
       # was going to be symlinks, but rubygems didn't seem to want to package
       # them
-      case version
-      when "2.02.28"
+      if version == "2.02.28"
         version = "2.02.27"
-      when (31..39).map { |x| "2.02.#{x}" } 
+      elsif ((31..39).map { |x| "2.02.#{x}" }).include?(version)
         version = "2.02.30"
       end
 
