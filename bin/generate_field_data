@@ -36,16 +36,20 @@ TYPE_CONVERSION_MAP = {
  "lvkreadahead" => "Integer",
  "pvsize" => "Integer",
  "devsize" => "Integer",
+ "originsize" => "Integer",
  "pvfree" => "Integer",
  "pvused" => "Integer",
  "pvmdafree" => "Integer",
+ "pvmdasize" => "Integer",
  "vgsize" => "Integer",
  "vgfree" => "Integer",
  "vgmda_free" => "Integer",
  "chunksize" => "Integer",
  "segstart" => "Integer",
  "segsize" => "Integer",
+ "snapcount" => "Integer",
  "vgmdafree" => "Integer",
+ "vgmdasize" => "Integer",
  # Weird one, can be "auto" or size32
  "lvreadahead" => "String"
 }
@@ -76,7 +80,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     if general_type == "NUM"
       attribute_type = TYPE_CONVERSION_MAP[specific_type]
       if attribute_type.nil?
-        puts "Oops, missing type conversion data of column '#{attribute}' use by '#{app}' which says its going to return a '#{specific_type}'"
+        puts "Oops, missing type conversion data of column '#{specific_type}' use by '#{app}' which says its going to return a '#{specific_type}'"
         puts "Figure out the missing type and rerun."
         exit 1
       end
