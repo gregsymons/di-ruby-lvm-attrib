@@ -96,6 +96,8 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
       method.sub!(%r{^lv_}, '') 
     when "SEGS"
       method.sub!(%r{^seg_}, '') 
+    when "LABEL"
+      method.sub!(%r{^pv_}, '')
     when "PVS"
       method.sub!(%r{^pv_}, '') 
     when "PVSEGS"
@@ -116,6 +118,8 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
       lvs << attribute
     when "SEGS"
       lvssegs << attribute
+    when "LABEL"
+      pvs << attribute
     when "PVS"
       pvs << attribute
     when "PVSEGS"
