@@ -51,7 +51,16 @@ TYPE_CONVERSION_MAP = {
  "vgmdafree" => "Integer",
  "vgmdasize" => "Integer",
  # Weird one, can be "auto" or size32
- "lvreadahead" => "String"
+ "lvreadahead" => "String",
+ "lvmetadatasize" => "Integer",
+ "datapercent" => "Float",
+ "metadatapercent" => "Float",
+ "pvmdasused" => "Integer",
+ "vgmdasused" => "Integer",
+ "vgmdacopies" => "Integer",
+ "thincount" => "Integer",
+ "thinzero" => "Integer",
+ "transactionid" => "Integer"
 }
 
 lvm_source = ARGV[0]
