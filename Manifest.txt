@@ -26,6 +26,11 @@ lib/lvm/attributes/2.02.30/lvsseg.yaml
 lib/lvm/attributes/2.02.30/vgs.yaml
 lib/lvm/attributes/2.02.30/lvs.yaml
 lib/lvm/attributes/2.02.30/pvsseg.yaml
+lib/lvm/attributes/2.02.95(2)/lvs.yaml
+lib/lvm/attributes/2.02.95(2)/lvsseg.yaml
+lib/lvm/attributes/2.02.95(2)/pvs.yaml
+lib/lvm/attributes/2.02.95(2)/pvsseg.yaml
+lib/lvm/attributes/2.02.95(2)/vgs.yaml
 Manifest.txt
 Rakefile
 README.txt
