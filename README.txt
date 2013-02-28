@@ -6,7 +6,8 @@
 == DESCRIPTION:
 
 This is a list of attributes for lvm objects. They are generated from the 
-source code and broken down by version.
+source code and broken down by version. See ADDING ATTRIBUTES below
+to contribute.
 
 At their core these files exist to determine which arguments to pass
 lvs/vgs/pvs and the subsequent type conversions.
@@ -31,6 +32,34 @@ updating to follow LVM2 releases.
 == INSTALL:
 
 * sudo gem install ruby-lvm-attrib
+
+== ADDING ATTRIBUTES:
+
+To add attributes:
+* Download and extract LVM2 source version from: http://git.fedorahosted.org/cgit/lvm2.git/refs/tags
+* Fork this repository
+* `git clone your-forked-repo`
+* `cd your-forked-repo`
+* `git checkout -b mybranch`
+* `bin/generate_field_data path/to/lvm2-source`
+  * See missing attribute type note below if there's issues, otherwise will just return "Done."
+* `mv LVM_VERSION_FULL lib/lvm/attributes/LVM_VERSION`
+  * LVM_VERSION_FULL being something like 2.02.86(2)-cvs or 2.02.98(2)-git
+  * LVM_VERSION being something like 2.02.86(2) or 2.02.98(2)
+* `git commit -am "Added LVM_VERSION attributes"`
+* `git push origin mybranch`
+* Submit PR to this repository
+
+=== MISSING ATTRIBUTE TYPE:
+
+If you get an error like the below:
+
+    Oops, missing type conversion data of column 'discards' use by 'SEGS' which says its going to return a 'discards'
+    Figure out the missing type and rerun.
+
+* Look in `path/to/lvm-source/lib/report/columns.rb` for the column name in the 7th field.
+* If the 3rd field is NUM, type will be Integer. If 3rd field is STR, type will be String.
+* Add the information to `bin/generate_field_data` in the TYPE_CONVERSION_MAP and try running again
 
 == FEEDBACK:
 
