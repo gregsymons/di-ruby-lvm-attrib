@@ -48,7 +48,8 @@ To add attributes:
   * LVM_VERSION being something like 2.02.86(2) or 2.02.98(2)
 * `git commit -am "Added LVM_VERSION attributes"`
 * `git push origin mybranch`
-* Submit PR to this repository
+* Submit PR to this repository. Please make sure to point your pull at the
+  `next` branch -- NOT MASTER!
 
 === MISSING ATTRIBUTE TYPE:
 
