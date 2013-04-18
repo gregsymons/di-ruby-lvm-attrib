@@ -1,6 +1,11 @@
 bin/generate_field_data
 History.txt
 lib/lvm/attributes.rb
+lib/lvm/attributes/2.02.88(2)/pvs.yaml
+lib/lvm/attributes/2.02.88(2)/lvsseg.yaml
+lib/lvm/attributes/2.02.88(2)/vgs.yaml
+lib/lvm/attributes/2.02.88(2)/lvs.yaml
+lib/lvm/attributes/2.02.88(2)/pvsseg.yaml
 lib/lvm/attributes/2.02.27/pvs.yaml
 lib/lvm/attributes/2.02.27/lvsseg.yaml
 lib/lvm/attributes/2.02.27/vgs.yaml
@@ -41,6 +46,11 @@ lib/lvm/attributes/2.02.95(2)/lvsseg.yaml
 lib/lvm/attributes/2.02.95(2)/vgs.yaml
 lib/lvm/attributes/2.02.95(2)/lvs.yaml
 lib/lvm/attributes/2.02.95(2)/pvsseg.yaml
+lib/lvm/attributes/2.02.84(2)/pvs.yaml
+lib/lvm/attributes/2.02.84(2)/lvsseg.yaml
+lib/lvm/attributes/2.02.84(2)/vgs.yaml
+lib/lvm/attributes/2.02.84(2)/lvs.yaml
+lib/lvm/attributes/2.02.84(2)/pvsseg.yaml
 lib/lvm/attributes/2.02.54(1)/pvs.yaml
 lib/lvm/attributes/2.02.54(1)/lvsseg.yaml
 lib/lvm/attributes/2.02.54(1)/vgs.yaml
