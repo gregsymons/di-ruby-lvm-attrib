@@ -46,10 +46,11 @@ To add attributes:
 * `mv LVM_VERSION_FULL lib/lvm/attributes/LVM_VERSION`
   * LVM_VERSION_FULL being something like 2.02.86(2)-cvs or 2.02.98(2)-git
   * LVM_VERSION being something like 2.02.86(2) or 2.02.98(2)
+* Add the newly generated files to Manifest.txt
 * `git commit -am "Added LVM_VERSION attributes"`
 * `git push origin mybranch`
-* Submit PR to this repository. Please make sure to point your pull at the
-  `next` branch -- NOT MASTER!
+* Submit PR to this repository. *Please make sure to point your pull at the
+  `next` branch -- NOT MASTER!*
 
 === MISSING ATTRIBUTE TYPE:
 
