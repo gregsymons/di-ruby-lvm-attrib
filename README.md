@@ -1,8 +1,5 @@
 # ruby-lvm-attrib
 
-* http://ruby-lvm-attrib.rubyforge.org
-* mailto:mkent@magoazul.com
-
 ## DESCRIPTION:
 
 This is a list of attributes for lvm objects. They are generated from the 
@@ -10,8 +7,7 @@ source code and broken down by version. See ADDING ATTRIBUTES below
 to contribute.
 
 At their core these files exist to determine which arguments to pass
-lvs/vgs/pvs and the subsequent type conversions.
-
+lvs/vgs/pvs and the subsequent type conversions.  
 Currently this is split from the main ruby-lvm gem since these files require
 updating to follow LVM2 releases.
 
