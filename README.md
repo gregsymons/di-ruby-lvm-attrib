@@ -1,9 +1,9 @@
-= ruby-lvm-attrib
+# ruby-lvm-attrib
 
 * http://ruby-lvm-attrib.rubyforge.org
 * mailto:mkent@magoazul.com
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 This is a list of attributes for lvm objects. They are generated from the 
 source code and broken down by version. See ADDING ATTRIBUTES below
@@ -15,25 +15,27 @@ lvs/vgs/pvs and the subsequent type conversions.
 Currently this is split from the main ruby-lvm gem since these files require
 updating to follow LVM2 releases.
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * This library may go away depending on future progress of ruby-lvm.
 
-== SYNOPSIS:
+## SYNOPSIS:
 
+```ruby
   require 'lvm/attributes'
 
   attributes = Attributes.load("2.0.36", "vgs.yaml")
+```
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
 * None
 
-== INSTALL:
+## INSTALL:
 
-* sudo gem install ruby-lvm-attrib
+* `sudo gem install ruby-lvm-attrib`
 
-== ADDING ATTRIBUTES:
+## ADDING ATTRIBUTES:
 
 To add attributes:
 * Download and extract LVM2 source version from: http://git.fedorahosted.org/cgit/lvm2.git/refs/tags
@@ -49,10 +51,10 @@ To add attributes:
 * Add the newly generated files to Manifest.txt
 * `git commit -am "Added LVM_VERSION attributes"`
 * `git push origin mybranch`
-* Submit PR to this repository. *Please make sure to point your pull at the
-  `next` branch -- NOT MASTER!*
+* Submit PR to this repository. **Please make sure to point your pull at the
+  `next` branch -- NOT MASTER!**
 
-=== MISSING ATTRIBUTE TYPE:
+### MISSING ATTRIBUTE TYPE:
 
 If you get an error like the below:
 
@@ -63,12 +65,12 @@ If you get an error like the below:
 * If the 3rd field is NUM, type will be Integer. If 3rd field is STR, type will be String.
 * Add the information to `bin/generate_field_data` in the TYPE_CONVERSION_MAP and try running again
 
-== FEEDBACK:
+## FEEDBACK:
 
 Please feel free to submit patches or constructive criticism, I'm still pretty
 new to ruby and object oriented programming in general.
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 
