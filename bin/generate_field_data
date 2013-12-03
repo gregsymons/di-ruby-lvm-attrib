@@ -61,7 +61,11 @@ TYPE_CONVERSION_MAP = {
  "thincount" => "Integer",
  "discards" => "Integer",
  "thinzero" => "Integer",
- "transactionid" => "Integer"
+ "transactionid" => "Integer",
+ "raidmismatchcount" => "Integer",
+ "raidwritebehind" => "Integer",
+ "raidminrecoveryrate" => "Integer",
+ "raidmaxrecoveryrate" => "Integer"
 }
 
 lvm_source = ARGV[0]
