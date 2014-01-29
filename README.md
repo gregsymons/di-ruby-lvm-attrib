@@ -49,6 +49,9 @@ To add attributes:
 * Submit PR to this repository. **Please make sure to point your pull at the
   `next` branch -- NOT MASTER!**
 
+You can have look at `update-lvm.sh` that does above steps (except git changes)
+automatically.
+
 ### MISSING ATTRIBUTE TYPE:
 
 If you get an error like the below:
