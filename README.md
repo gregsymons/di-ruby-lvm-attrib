@@ -59,7 +59,7 @@ If you get an error like the below:
     Oops, missing type conversion data of column 'discards' use by 'SEGS' which says its going to return a 'discards'
     Figure out the missing type and rerun.
 
-* Look in `path/to/lvm-source/lib/report/columns.rb` for the column name in the 7th field.
+* Look in `path/to/lvm-source/lib/report/columns.h` for the column name in the 7th field.
 * If the 3rd field is NUM, type will be Integer. If 3rd field is STR, type will be String.
 * Add the information to `bin/generate_field_data` in the TYPE_CONVERSION_MAP and try running again
 
