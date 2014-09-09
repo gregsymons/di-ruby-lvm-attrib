@@ -59,6 +59,7 @@ TYPE_CONVERSION_MAP = {
  "vgmdasused" => "Integer",
  "vgmdacopies" => "Integer",
  "thincount" => "Integer",
+ "thinid" => "Integer",
  "discards" => "Integer",
  "thinzero" => "Integer",
  "transactionid" => "Integer",
