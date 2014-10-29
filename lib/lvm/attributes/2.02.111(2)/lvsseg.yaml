@@ -5,11 +5,11 @@
 - :method: chunk_size
   :column: chunk_size
   :description: For snapshots
-  :type_hint: String
+  :type_hint: Integer
 - :method: chunksize
   :column: chunksize
   :description: For snapshots
-  :type_hint: String
+  :type_hint: Integer
 - :method: devices
   :column: devices
   :description: Underlying devices used with starting extent numbers.
@@ -25,11 +25,11 @@
 - :method: region_size
   :column: region_size
   :description: For mirrors
-  :type_hint: String
+  :type_hint: Integer
 - :method: regionsize
   :column: regionsize
   :description: For mirrors
-  :type_hint: String
+  :type_hint: Integer
 - :method: monitor
   :column: seg_monitor
   :description: Dmeventd monitoring status of the segment.
@@ -41,11 +41,11 @@
 - :method: size
   :column: seg_size
   :description: Size of segment in current units.
-  :type_hint: String
+  :type_hint: Integer
 - :method: size_pe
   :column: seg_size_pe
   :description: Size of segment in physical extents.
-  :type_hint: String
+  :type_hint: Integer
 - :method: start
   :column: seg_start
   :description: Offset within the LV to the start of the segment in current units.
@@ -65,7 +65,7 @@
 - :method: stripe_size
   :column: stripe_size
   :description: For stripes
-  :type_hint: String
+  :type_hint: Integer
 - :method: stripes
   :column: stripes
   :description: Number of stripes or mirror legs.
@@ -73,7 +73,7 @@
 - :method: stripesize
   :column: stripesize
   :description: For stripes
-  :type_hint: String
+  :type_hint: Integer
 - :method: thin_count
   :column: thin_count
   :description: For thin pools
@@ -89,4 +89,4 @@
 - :method: zero
   :column: zero
   :description: For thin pools
-  :type_hint: String
+  :type_hint: Integer
