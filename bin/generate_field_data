@@ -68,7 +68,15 @@ TYPE_CONVERSION_MAP = {
  "raidminrecoveryrate" => "Integer",
  "raidmaxrecoveryrate" => "Integer",
  "segsizepe" => "Integer",
- "thinid" => "Integer"
+ "thinid" => "Integer",
+ # New fields for caching
+ "cache_total_blocks" => "Integer",
+ "cache_used_blocks" => "Integer",
+ "cache_dirty_blocks" => "Integer",
+ "cache_read_hits" => "Integer",
+ "cache_read_misses" => "Integer",
+ "cache_write_hits" => "Integer",
+ "cache_write_misses" => "Integer"
 }
 
 lvm_source = ARGV[0]
