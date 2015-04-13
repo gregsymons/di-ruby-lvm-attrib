@@ -4,7 +4,7 @@
 ---
 - :method: dev_size
   :column: dev_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of underlying device in current units.
 - :method: pe_start
   :column: pe_start
@@ -20,7 +20,7 @@
   :description: Various attributes - see man page.
 - :method: ba_size
   :column: pv_ba_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of PV Bootloader Area in current units.
 - :method: ba_start
   :column: pv_ba_start
@@ -37,7 +37,7 @@
   :description: Type of metadata.
 - :method: free
   :column: pv_free
-  :type_hint: String
+  :type_hint: Integer
   :description: Total amount of unallocated space in current units.
 - :method: mda_count
   :column: pv_mda_count
@@ -45,11 +45,11 @@
   :description: Number of metadata areas on this device.
 - :method: mda_free
   :column: pv_mda_free
-  :type_hint: String
+  :type_hint: Integer
   :description: Free metadata area space on this device in current units.
 - :method: mda_size
   :column: pv_mda_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of smallest metadata area on this device in current units.
 - :method: mda_used_count
   :column: pv_mda_used_count
@@ -73,7 +73,7 @@
   :description: Total number of Physical Extents.
 - :method: size
   :column: pv_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of PV in current units.
 - :method: tags
   :column: pv_tags
@@ -81,7 +81,7 @@
   :description: Tags
 - :method: used
   :column: pv_used
-  :type_hint: String
+  :type_hint: Integer
   :description: Total amount of allocated space in current units.
 - :method: uuid
   :column: pv_uuid

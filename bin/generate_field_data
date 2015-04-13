@@ -102,7 +102,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     description   = fields[8]
     p app, general_type, specific_type, column, method, description if debug
 
-    if general_type == "NUM"
+    if ["NUM", "SIZ"].include?(general_type)
       attribute_type = TYPE_CONVERSION_MAP[specific_type]
       if attribute_type.nil?
         puts "Oops, missing type conversion data of column '#{specific_type}' use by '#{app}' which says its going to return a '#{specific_type}'"
