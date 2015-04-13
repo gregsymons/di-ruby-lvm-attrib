@@ -117,7 +117,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     # dropped when passing column names as arguments as well, but i found a few
     # with issues (seg_start).
     case app
-    when "LVS"
+    when "LVS", "LVSINFOSTATUS"
       method.sub!(%r{^lv_}, '') 
     when "SEGS"
       method.sub!(%r{^seg_}, '') 
@@ -139,7 +139,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     }
 
     case app
-    when "LVS"
+    when "LVS", "LVSINFOSTATUS"
       lvs << attribute
     when "SEGS"
       lvssegs << attribute
