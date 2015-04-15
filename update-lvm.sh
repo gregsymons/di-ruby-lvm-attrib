@@ -44,7 +44,7 @@ else
 fi
 
 # iterate over all tags
-for tag in ${@:-$(git tags $pattern)}; do
+for tag in ${@:-$(git tag $pattern)}; do
 	# already present in source tree
 	test -d lib/lvm/attributes/$tag && continue
 

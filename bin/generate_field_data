@@ -102,7 +102,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     description   = fields[8]
     p app, general_type, specific_type, column, method, description if debug
 
-    if general_type == "NUM"
+    if ["NUM", "SIZ"].include?(general_type)
       attribute_type = TYPE_CONVERSION_MAP[specific_type]
       if attribute_type.nil?
         puts "Oops, missing type conversion data of column '#{specific_type}' use by '#{app}' which says its going to return a '#{specific_type}'"
@@ -117,7 +117,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     # dropped when passing column names as arguments as well, but i found a few
     # with issues (seg_start).
     case app
-    when "LVS"
+    when "LVS", "LVSINFOSTATUS"
       method.sub!(%r{^lv_}, '') 
     when "SEGS"
       method.sub!(%r{^seg_}, '') 
@@ -139,7 +139,7 @@ File.readlines(lvm_source + COLUMNS_FILE).each do |line|
     }
 
     case app
-    when "LVS"
+    when "LVS", "LVSINFOSTATUS"
       lvs << attribute
     when "SEGS"
       lvssegs << attribute

@@ -42,6 +42,10 @@
   :column: lv_allocation_policy
   :type_hint: String
   :description: LV allocation policy.
+- :method: attr
+  :column: lv_attr
+  :type_hint: String
+  :description: Various attributes - see man page.
 - :method: converting
   :column: lv_converting
   :type_hint: String
@@ -88,7 +92,7 @@
   :description: Set if snapshot LV is being merged to origin.
 - :method: metadata_size
   :column: lv_metadata_size
-  :type_hint: String
+  :type_hint: Integer
   :description: For thin pools
 - :method: minor
   :column: lv_minor
@@ -124,7 +128,7 @@
   :description: LV role.
 - :method: size
   :column: lv_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of LV in current units.
 - :method: skip_activation
   :column: lv_skip_activation
@@ -172,7 +176,7 @@
   :description: For snapshots
 - :method: origin_size
   :column: origin_size
-  :type_hint: String
+  :type_hint: Integer
   :description: For snapshots
 - :method: pool_lv
   :column: pool_lv

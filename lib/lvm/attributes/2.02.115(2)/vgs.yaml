@@ -48,7 +48,7 @@
   :description: Total number of Physical Extents.
 - :method: extent_size
   :column: vg_extent_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of Physical Extents in current units.
 - :method: fmt
   :column: vg_fmt
@@ -72,11 +72,11 @@
   :description: Number of metadata areas on this VG.
 - :method: mda_free
   :column: vg_mda_free
-  :type_hint: String
+  :type_hint: Integer
   :description: Free metadata area space for this VG in current units.
 - :method: mda_size
   :column: vg_mda_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Size of smallest metadata area for this VG in current units.
 - :method: mda_used_count
   :column: vg_mda_used_count
@@ -104,7 +104,7 @@
   :description: Revision number of internal metadata.  Incremented whenever it changes.
 - :method: size
   :column: vg_size
-  :type_hint: String
+  :type_hint: Integer
   :description: Total size of VG in current units.
 - :method: sysid
   :column: vg_sysid
