@@ -11,5 +11,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "di-ruby-lvm-attrib"
   gem.require_paths = ["lib"]
-  gem.version       = '0.0.18'
+  gem.version       = '0.0.19-dev'
 end
