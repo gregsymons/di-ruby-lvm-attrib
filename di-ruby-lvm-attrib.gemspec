@@ -2,7 +2,7 @@ $:.unshift(File.expand_path('../lib/', __FILE__))
 require 'lvm/attributes'
 
 Gem::Specification.new do |gem|  
-  gem.authors       = ["Greg Symons", "Matthew Kent"]  
+  gem.authors       = ["Greg Symons", "Elan Ruusamäe", "Matthew Kent"]  
   gem.email         = ["mkent@magoazul.com", 'gsymons@gsconsulting.biz']  
   gem.description   = %q{A list of attributes for LVM objects}
   gem.license       = "MIT"
