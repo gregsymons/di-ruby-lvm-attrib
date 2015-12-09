@@ -11,72 +11,72 @@ require 'yaml'
 VERSION_FILE = "/VERSION"
 COLUMNS_FILE = "/lib/report/columns.h"
 
-debug = false 
+debug = false
 
 TYPE_CONVERSION_MAP = {
- # Only types we can really trust
- "uint32" => "Integer",
- "int32" => "Integer",
- # These were determined by reading the code, they invoke _(u)int32_disp right away
- "pvmdas" => "Integer",
- "vgmdas" => "Integer",
- "lvcount" => "Integer",
- "lvsegcount" => "Integer",
- "segstartpe" => "Integer",
- # listed to return STR?
- "lvkmaj" => "Integer",
- "lvkmin" => "Integer",
- "snpercent" => "Float",
- "copypercent" => "Float",
- # size32/64, these do unit formatting unless overridden on command line. We
- # typically want them in bytes so we can convert them to Integers safely
- "size32" => "Integer",
- "size64" => "Integer",
- # These types return size32/size64 as well
- "lvkreadahead" => "Integer",
- "pvsize" => "Integer",
- "devsize" => "Integer",
- "originsize" => "Integer",
- "pvfree" => "Integer",
- "pvused" => "Integer",
- "pvmdafree" => "Integer",
- "pvmdasize" => "Integer",
- "vgsize" => "Integer",
- "vgfree" => "Integer",
- "vgmda_free" => "Integer",
- "chunksize" => "Integer",
- "segstart" => "Integer",
- "segsize" => "Integer",
- "snapcount" => "Integer",
- "vgmdafree" => "Integer",
- "vgmdasize" => "Integer",
- # Weird one, can be "auto" or size32
- "lvreadahead" => "String",
- "lvmetadatasize" => "Integer",
- "datapercent" => "Float",
- "metadatapercent" => "Float",
- "pvmdasused" => "Integer",
- "vgmdasused" => "Integer",
- "vgmdacopies" => "Integer",
- "thincount" => "Integer",
- "thinid" => "Integer",
- "discards" => "Integer",
- "thinzero" => "Integer",
- "transactionid" => "Integer",
- "raidmismatchcount" => "Integer",
- "raidwritebehind" => "Integer",
- "raidminrecoveryrate" => "Integer",
- "raidmaxrecoveryrate" => "Integer",
- "segsizepe" => "Integer",
- "thinid" => "Integer",
- # New fields for caching
- "cache_total_blocks" => "Integer",
- "cache_used_blocks" => "Integer",
- "cache_dirty_blocks" => "Integer",
- "cache_read_hits" => "Integer",
- "cache_read_misses" => "Integer",
- "cache_write_hits" => "Integer",
- "cache_write_misses" => "Integer"
+  # Only types we can really trust
+  "uint32" => "Integer",
+  "int32" => "Integer",
+  # These were determined by reading the code, they invoke _(u)int32_disp right away
+  "pvmdas" => "Integer",
+  "vgmdas" => "Integer",
+  "lvcount" => "Integer",
+  "lvsegcount" => "Integer",
+  "segstartpe" => "Integer",
+  # listed to return STR?
+  "lvkmaj" => "Integer",
+  "lvkmin" => "Integer",
+  "snpercent" => "Float",
+  "copypercent" => "Float",
+  # size32/64, these do unit formatting unless overridden on command line. We
+  # typically want them in bytes so we can convert them to Integers safely
+  "size32" => "Integer",
+  "size64" => "Integer",
+  # These types return size32/size64 as well
+  "lvkreadahead" => "Integer",
+  "pvsize" => "Integer",
+  "devsize" => "Integer",
+  "originsize" => "Integer",
+  "pvfree" => "Integer",
+  "pvused" => "Integer",
+  "pvmdafree" => "Integer",
+  "pvmdasize" => "Integer",
+  "vgsize" => "Integer",
+  "vgfree" => "Integer",
+  "vgmda_free" => "Integer",
+  "chunksize" => "Integer",
+  "segstart" => "Integer",
+  "segsize" => "Integer",
+  "snapcount" => "Integer",
+  "vgmdafree" => "Integer",
+  "vgmdasize" => "Integer",
+  # Weird one, can be "auto" or size32
+  "lvreadahead" => "String",
+  "lvmetadatasize" => "Integer",
+  "datapercent" => "Float",
+  "metadatapercent" => "Float",
+  "pvmdasused" => "Integer",
+  "vgmdasused" => "Integer",
+  "vgmdacopies" => "Integer",
+  "thincount" => "Integer",
+  "thinid" => "Integer",
+  "discards" => "Integer",
+  "thinzero" => "Integer",
+  "transactionid" => "Integer",
+  "raidmismatchcount" => "Integer",
+  "raidwritebehind" => "Integer",
+  "raidminrecoveryrate" => "Integer",
+  "raidmaxrecoveryrate" => "Integer",
+  "segsizepe" => "Integer",
+  "thinid" => "Integer",
+  # New fields for caching
+  "cache_total_blocks" => "Integer",
+  "cache_used_blocks" => "Integer",
+  "cache_dirty_blocks" => "Integer",
+  "cache_read_hits" => "Integer",
+  "cache_read_misses" => "Integer",
+  "cache_write_hits" => "Integer",
+  "cache_write_misses" => "Integer"
 }
 
 lvm_source = ARGV[0]
@@ -86,117 +86,116 @@ version = File.readlines(lvm_source + VERSION_FILE)[0].split(' ')[0]
 lvs     = []
 lvssegs = []
 pvs     = []
-pvssegs = [] 
+pvssegs = []
 vgs     = []
 File.readlines(lvm_source + COLUMNS_FILE).each do |line|
   # eg: FIELD(LVS, lv, STR, "LV UUID", lvid.id[1], 38, uuid, "lv_uuid", "Unique identifier")
-  if line =~ %r{^FIELD\((.*)\)$}
-    fields = $1.split(', ')
-    fields.each { |f| f.gsub!(%r{^"}, ''); f.gsub!(%r{"$}, '') }
-    p fields if debug
-    app           = fields[0]
-    general_type  = fields[2]
-    specific_type = fields[6]
-    column        = fields[7]
-    method        = fields[7].dup
-    description   = fields[8]
-    p app, general_type, specific_type, column, method, description if debug
+  next unless line =~ %r{^FIELD\((.*)\)$}
+  fields = $1.split(', ')
+  fields.each { |f| f.gsub!(%r{^"}, ''); f.gsub!(%r{"$}, '') }
+  p fields if debug
+  app           = fields[0]
+  general_type  = fields[2]
+  specific_type = fields[6]
+  column        = fields[7]
+  method        = fields[7].dup
+  description   = fields[8]
+  p app, general_type, specific_type, column, method, description if debug
 
-    if ["NUM", "SIZ"].include?(general_type)
-      attribute_type = TYPE_CONVERSION_MAP[specific_type]
-      if attribute_type.nil?
-        puts "Oops, missing type conversion data of column '#{specific_type}' use by '#{app}' which says its going to return a '#{specific_type}'"
-        puts "Figure out the missing type and rerun."
-        exit 1
-      end
-    else
-      attribute_type = "String"
+  if ["NUM", "SIZ"].include?(general_type)
+    attribute_type = TYPE_CONVERSION_MAP[specific_type]
+    if attribute_type.nil?
+      puts "Oops, missing type conversion data of column '#{specific_type}' use by '#{app}' which says its going to return a '#{specific_type}'"
+      puts "Figure out the missing type and rerun."
+      exit 1
     end
+  else
+    attribute_type = "String"
+  end
 
-    # our shorter nicer method names, according to the man page these can be
-    # dropped when passing column names as arguments as well, but i found a few
-    # with issues (seg_start).
-    case app
-    when "LVS", "LVSINFOSTATUS"
-      method.sub!(%r{^lv_}, '') 
-    when "SEGS"
-      method.sub!(%r{^seg_}, '') 
-    when "LABEL"
-      method.sub!(%r{^pv_}, '')
-    when "PVS"
-      method.sub!(%r{^pv_}, '') 
-    when "PVSEGS"
-      method.sub!(%r{^pvseg_}, '') 
-    when "VGS"
-      method.sub!(%r{^vg_}, '') 
-    end
+  # our shorter nicer method names, according to the man page these can be
+  # dropped when passing column names as arguments as well, but i found a few
+  # with issues (seg_start).
+  case app
+  when "LVS", "LVSINFOSTATUS"
+    method.sub!(%r{^lv_}, '')
+  when "SEGS"
+    method.sub!(%r{^seg_}, '')
+  when "LABEL"
+    method.sub!(%r{^pv_}, '')
+  when "PVS"
+    method.sub!(%r{^pv_}, '')
+  when "PVSEGS"
+    method.sub!(%r{^pvseg_}, '')
+  when "VGS"
+    method.sub!(%r{^vg_}, '')
+  end
 
-    attribute = { 
-      :method => method, 
-      :column => column, 
-      :type_hint => attribute_type, 
-      :description => description 
-    }
+  attribute = {
+    :method => method,
+    :column => column,
+    :type_hint => attribute_type,
+    :description => description
+  }
 
-    case app
-    when "LVS", "LVSINFOSTATUS"
-      lvs << attribute
-    when "SEGS"
-      lvssegs << attribute
-    when "LABEL"
-      pvs << attribute
-    when "PVS"
-      pvs << attribute
-    when "PVSEGS"
-      pvssegs << attribute
-    when "VGS"
-      vgs << attribute
-    end
+  case app
+  when "LVS", "LVSINFOSTATUS"
+    lvs << attribute
+  when "SEGS"
+    lvssegs << attribute
+  when "LABEL"
+    pvs << attribute
+  when "PVS"
+    pvs << attribute
+  when "PVSEGS"
+    pvssegs << attribute
+  when "VGS"
+    vgs << attribute
   end
 end
 
 # we use vg_uuid as our crossover attribute that links vg->lv and vg->pv
-attribute = { :method => "vg_uuid", 
-              :column => "vg_uuid", 
-              :type_hint => "String", 
+attribute = { :method => "vg_uuid",
+              :column => "vg_uuid",
+              :type_hint => "String",
               :description => "For VolumeGroup to LogicalVolume relationship." }
 lvs << attribute
-attribute = { :method => "vg_uuid", 
-              :column => "vg_uuid", 
-              :type_hint => "String", 
+attribute = { :method => "vg_uuid",
+              :column => "vg_uuid",
+              :type_hint => "String",
               :description => "For VolumeGroup to PhysicalVolume relationship." }
 pvs << attribute
 
 # and we link lv->lvsegment, pv->pvsegment
-attribute = { :method => "lv_uuid", 
-              :column => "lv_uuid", 
-              :type_hint => "String", 
+attribute = { :method => "lv_uuid",
+              :column => "lv_uuid",
+              :type_hint => "String",
               :description => "For LogicalVolume to LogicalVolumeSegment relationship." }
 lvssegs << attribute
-attribute = { :method => "pv_uuid", 
-              :column => "pv_uuid", 
-              :type_hint => "String", 
+attribute = { :method => "pv_uuid",
+              :column => "pv_uuid",
+              :type_hint => "String",
               :description => "For PhysicalVolume to PhysicalVolumeSegment relationship." }
 pvssegs << attribute
 
-lvs.sort!     {|x,y| x[:column] <=> y[:column]}
-lvssegs.sort! {|x,y| x[:column] <=> y[:column]}
-pvs.sort!     {|x,y| x[:column] <=> y[:column]} 
-pvssegs.sort! {|x,y| x[:column] <=> y[:column]} 
-vgs.sort!     {|x,y| x[:column] <=> y[:column]}
+lvs.sort!     { |x, y| x[:column] <=> y[:column] }
+lvssegs.sort! { |x, y| x[:column] <=> y[:column] }
+pvs.sort!     { |x, y| x[:column] <=> y[:column] }
+pvssegs.sort! { |x, y| x[:column] <=> y[:column] }
+vgs.sort!     { |x, y| x[:column] <=> y[:column] }
 
 FileUtils.mkdir(version)
 
-disclaimer=<<go
+disclaimer = <<go
 # These are column to object attribute mappings
 # generated by #{$0} based on
 # #{lvm_source}/lib/report/columns.h
 go
 
-File.open("#{version}/lvs.yaml", "w")    { |f| f.write(disclaimer); f.write(lvs.to_yaml)    }
-File.open("#{version}/lvsseg.yaml", "w") { |f| f.write(disclaimer); f.write(lvssegs.to_yaml)}
-File.open("#{version}/pvs.yaml", "w")    { |f| f.write(disclaimer); f.write(pvs.to_yaml)    }
-File.open("#{version}/pvsseg.yaml", "w") { |f| f.write(disclaimer); f.write(pvssegs.to_yaml)}
-File.open("#{version}/vgs.yaml", "w")    { |f| f.write(disclaimer); f.write(vgs.to_yaml)    }
+File.open("#{version}/lvs.yaml", "w")    { |f| f.write(disclaimer); f.write(lvs.to_yaml) }
+File.open("#{version}/lvsseg.yaml", "w") { |f| f.write(disclaimer); f.write(lvssegs.to_yaml) }
+File.open("#{version}/pvs.yaml", "w")    { |f| f.write(disclaimer); f.write(pvs.to_yaml) }
+File.open("#{version}/pvsseg.yaml", "w") { |f| f.write(disclaimer); f.write(pvssegs.to_yaml) }
+File.open("#{version}/vgs.yaml", "w")    { |f| f.write(disclaimer); f.write(vgs.to_yaml) }
 
 puts "Done."
