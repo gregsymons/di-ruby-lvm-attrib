@@ -3,7 +3,7 @@ require 'yaml'
 module LVM
   module Attributes
     VERSION = '0.0.23'
-    
+
     def load(version, name)
       cwd = File.dirname(__FILE__)
 
@@ -20,10 +20,10 @@ module LVM
       begin
         return YAML.load_file(file)
       rescue Errno::ENOENT => e
-        raise ArgumentError.new("Unable to load lvm attributes [#{name}] for version [#{version}]. " + 
+        raise ArgumentError.new("Unable to load lvm attributes [#{name}] for version [#{version}]. " \
           "The version/object may not be supported or you may need to upgrade the di-ruby-lvm-attrib gem. Error [#{e.message}]")
       end
     end
     module_function :load
-  end # module Attributes 
+  end # module Attributes
 end # module LVM
