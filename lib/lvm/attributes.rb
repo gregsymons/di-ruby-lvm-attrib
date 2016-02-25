@@ -2,7 +2,7 @@ require 'yaml'
 
 module LVM
   module Attributes
-    VERSION = '0.0.23'
+    VERSION = '0.0.24'
 
     def load(version, name)
       cwd = File.dirname(__FILE__)
