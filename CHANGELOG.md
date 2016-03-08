@@ -1,4 +1,7 @@
-# 0.0.24 (2016-2-25)
+# 0.0.25 (2016-03-08)
+- Added LVM attributes for version 2.02.122(2)
+
+# 0.0.24 (2016-02-25)
 - Added LVM attributes for version 2.0.2.120
 - Added a CHANGELOG
 
