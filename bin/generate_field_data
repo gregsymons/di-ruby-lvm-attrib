@@ -50,6 +50,8 @@ TYPE_CONVERSION_MAP = {
   "snapcount" => "Integer",
   "vgmdafree" => "Integer",
   "vgmdasize" => "Integer",
+  "pvextvsn" => "Integer",
+  "vgmissingpvcount" => "Integer",
   # Weird one, can be "auto" or size32
   "lvreadahead" => "String",
   "lvmetadatasize" => "Integer",
