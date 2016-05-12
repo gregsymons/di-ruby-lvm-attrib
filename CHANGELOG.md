@@ -1,3 +1,7 @@
+# 0.0.26 (2016-05-12)
+- Added LVM attributes for version 2.02.149
+- Added LVM attributes for version 2.02.143(2)
+
 # 0.0.25 (2016-03-08)
 - Added LVM attributes for version 2.02.122(2)
 
