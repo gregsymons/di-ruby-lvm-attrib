@@ -32,37 +32,64 @@ pattern=v2_02_*
 
 set -e
 
-export GIT_DIR=lvm2/.git
+msg() {
+	echo >&2 "$*"
+}
 
-if [ ! -d $GIT_DIR ]; then
-	install -d $GIT_DIR
-	git init
-	git remote add origin $repo_url
-	git fetch --depth 1 origin $refs --tags
-else
-	git fetch origin $refs --tags
-fi
+# do initial clone or update LVM2 repository
+clone_lvm2() {
+	if [ ! -d $GIT_DIR ]; then
+		msg "Checkout $repo_url"
+		install -d $GIT_DIR
+		git init
+		git remote add origin $repo_url
+		git fetch --depth 1 origin $refs --tags
+	else
+		msg "Update $repo_url"
+		git fetch origin $refs --tags
+	fi
+}
 
-# iterate over all tags
-for tag in ${@:-$(git tag -l $pattern)}; do
+process_lvm2_version() {
+	local tag=$1
+	msg ""
+	msg "Process LVM2 $tag"
+
 	# already present in source tree
-	test -d lib/lvm/attributes/$tag && continue
+	if [ -d lib/lvm/attributes/$tag ]; then
+		msg "lib/lvm/attributes/$tag already exists, skip"
+		return
+	fi
 
-	echo "Process $tag"
+	msg "Checkout LVM2 $tag"
 	cd lvm2
 	env -u GIT_DIR git checkout $tag
 	cd ..
 
 	version=$(awk '{print $1}' lvm2/VERSION)
+	msg "LVM2 Full Version: $version"
 	# skip old "cvs" releases
 	case "$version" in
 	*-cvs)
-		continue
+		msg "$version is CVS tag, skip"
+		return
 		;;
 	esac
 
 	# already present locally
-	test -d $version && continue
+	if [ -d $version ]; then
+		msg "$version exists, skip"
+		return
+	fi
 
-	./bin/generate_field_data lvm2 || echo FAILED
+	./bin/generate_field_data lvm2
+}
+
+export GIT_DIR=lvm2/.git
+clone_lvm2
+
+# process versions specified on commandline,
+# otherwise iterate over all LVM2 tags
+for tag in ${@:-$(git tag -l $pattern)}; do
+	process_lvm2_version $tag
 done
