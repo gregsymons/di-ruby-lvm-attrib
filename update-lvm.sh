@@ -5,7 +5,7 @@
 # Author: Elan Ruusamäe <glen@delfi.ee>
 #
 # Usage:
-# - update all versions: ./update-lvm.sh
+# - update all versions: ./update-lvm.sh -a
 # - update specific version "2.0.102": ./update-lvm.sh v2_02_102
 
 # ADDING ATTRIBUTES:
@@ -29,6 +29,7 @@
 repo_url=git://git.fedorahosted.org/git/lvm2.git
 refs=refs/heads/master:refs/remotes/origin/master
 pattern=v2_02_*
+git_dir=lvm2/.git
 
 set -e
 
@@ -63,7 +64,7 @@ process_lvm2_version() {
 
 	msg "Checkout LVM2 $tag"
 	cd lvm2
-	env -u GIT_DIR git checkout $tag
+	git checkout $tag
 	cd ..
 
 	version=$(awk '{print $1}' lvm2/VERSION)
@@ -94,11 +95,19 @@ process_lvm2_version() {
 	git commit -am "Added $tag attributes"
 }
 
-export GIT_DIR=lvm2/.git
-clone_lvm2
+
+GIT_DIR=$git_dir clone_lvm2
+
+if [ "$1" = "-a" ]; then
+	# obtain all versions
+	set -- $(GIT_DIR=$git_dir git tag -l $pattern)
+fi
+
+# it shouldn't be exported, but somewhy is. unset
+unset GIT_DIR
 
 # process versions specified on commandline,
 # otherwise iterate over all LVM2 tags
-for tag in ${@:-$(git tag -l $pattern)}; do
+for tag in "$@"; do
 	process_lvm2_version $tag
 done
