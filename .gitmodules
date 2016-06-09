@@ -1,0 +1,3 @@
+[submodule "lvm2"]
+	path = lvm2
+	url = git://git.fedorahosted.org/git/lvm2.git
