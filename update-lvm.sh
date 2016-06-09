@@ -83,6 +83,15 @@ process_lvm2_version() {
 	fi
 
 	./bin/generate_field_data lvm2
+
+	lvm_dir=$version
+	attr_dir=lib/lvm/attributes/${lvm_dir%-git}
+	mv $lvm_dir $attr_dir
+
+	git_branch=LVM-$tag
+	git add -A $attr_dir
+	git checkout -b $git_branch next
+	git commit -am "Added $tag attributes"
 }
 
 export GIT_DIR=lvm2/.git
