@@ -87,6 +87,10 @@ process_lvm2_version() {
 
 	lvm_dir=$version
 	attr_dir=lib/lvm/attributes/${lvm_dir%-git}
+	if [ -d "$attr_dir" ]; then
+		msg "$attr_dir already exists; abort"
+		exit 1
+	fi
 	mv $lvm_dir $attr_dir
 
 	git_branch=LVM-$tag
