@@ -79,20 +79,31 @@ process_lvm2_version() {
 
 	# already present locally
 	if [ -d $version ]; then
-		msg "$version exists, skip"
+		msg "dir '$version' exists, skip"
+		return
+	fi
+
+	# dir where attributes get saved
+	lvm_dir=$version
+
+	# remove -git suffix
+	version=${version%-git}
+	git_branch=LVM-${version}
+
+	# check that local branch isn't already created
+	if git show-ref --verify --quiet refs/heads/$git_branch; then
+		msg "Git branch '$git_branch' already exists; skip"
 		return
 	fi
 
 	./bin/generate_field_data lvm2
 
-	lvm_dir=$version
-	attr_dir=lib/lvm/attributes/${lvm_dir%-git}
+	attr_dir=lib/lvm/attributes/${version}
 	if [ -d "$attr_dir" ]; then
 		msg "$attr_dir already exists, skip"
 	fi
 	mv $lvm_dir $attr_dir
 
-	git_branch=LVM-$tag
 	git add -A $attr_dir
 	git checkout -b $git_branch next
 	git commit -am "Added $tag attributes"
