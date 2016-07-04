@@ -22,25 +22,27 @@ At their core these files exist to determine which arguments to pass lvs/vgs/pvs
 - `sudo gem install ruby-lvm-attrib`
 
 ## ADDING ATTRIBUTES:
+
 To add attributes:
-- Download and extract LVM2 source version from: [http://git.fedorahosted.org/cgit/lvm2.git/refs/tags](http://git.fedorahosted.org/cgit/lvm2.git/refs/tags)
+
+Use [update-lvm.sh](update-lvm.sh) script to add new version.
+Find the interested LVM2 tag from [LVM2 Repository](https://git.fedorahosted.org/cgit/lvm2.git/refs/tags).
+
 - Fork this repository
 - `git clone your-forked-repo`
 - `cd your-forked-repo`
-- `git checkout -b mybranch`
-- `bin/generate_field_data path/to/lvm2-source`
-  - See missing attribute type note below if there's issues, otherwise will just return "Done."
+- `./update-lvm.sh v2_02_155`
 
-- `mv LVM_VERSION_FULL lib/lvm/attributes/LVM_VERSION`
-  - LVM_VERSION_FULL being something like 2.02.86(2)-cvs or 2.02.98(2)-git
-  - LVM_VERSION being something like 2.02.86(2) or 2.02.98(2)
+The script will add `lib/lvm/attributes/LVM_VERSION` where `LVM_VERSION` being something like `2.02.86(2)` or `2.02.98(2)`.
 
-- `git commit -am "Added LVM_VERSION attributes"`
+If the script will not error, it will create new branch and commit `Added LVM_VERSION attributes`.
+
+In case of error, see missing attribute type note below.
+
+If all is well, publish the changes and make Pull Request from GitHub web:
+
 - `git push origin mybranch`
-- Submit PR to this repository. **Please make sure to point your pull at the
-- `next` branch -- NOT MASTER!**
-
-You can have look at `update-lvm.sh` that does above steps (except git changes) automatically.
+- Submit PR to this repository. **Please make sure to point your pull at the `next` branch -- NOT MASTER!**
 
 ### MISSING ATTRIBUTE TYPE:
 If you get an error like the below:

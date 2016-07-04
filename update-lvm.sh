@@ -5,7 +5,7 @@
 # Author: Elan Ruusamäe <glen@delfi.ee>
 #
 # Usage:
-# - update all versions: ./update-lvm.sh
+# - update all versions: ./update-lvm.sh -a
 # - update specific version "2.0.102": ./update-lvm.sh v2_02_102
 
 # ADDING ATTRIBUTES:
@@ -29,40 +29,99 @@
 repo_url=git://git.fedorahosted.org/git/lvm2.git
 refs=refs/heads/master:refs/remotes/origin/master
 pattern=v2_02_*
+git_dir=lvm2/.git
 
 set -e
 
-export GIT_DIR=lvm2/.git
+msg() {
+	echo >&2 "$*"
+}
 
-if [ ! -d $GIT_DIR ]; then
-	install -d $GIT_DIR
-	git init
-	git remote add origin $repo_url
-	git fetch --depth 1 origin $refs --tags
-else
-	git fetch origin $refs --tags
-fi
+# do initial clone or update LVM2 repository
+clone_lvm2() {
+	if [ ! -d $GIT_DIR ]; then
+		msg "Checkout $repo_url"
+		install -d $GIT_DIR
+		git init
+		git remote add origin $repo_url
+		git fetch --depth 1 origin $refs --tags
+	else
+		msg "Update $repo_url"
+		git fetch origin $refs --tags
+	fi
+}
 
-# iterate over all tags
-for tag in ${@:-$(git tag -l $pattern)}; do
+process_lvm2_version() {
+	local tag=$1
+	msg ""
+	msg "Process LVM2 $tag"
+
 	# already present in source tree
-	test -d lib/lvm/attributes/$tag && continue
+	if [ -d lib/lvm/attributes/$tag ]; then
+		msg "lib/lvm/attributes/$tag already exists, skip"
+		return
+	fi
 
-	echo "Process $tag"
+	msg "Checkout LVM2 $tag"
 	cd lvm2
-	env -u GIT_DIR git checkout $tag
+	git checkout $tag
 	cd ..
 
 	version=$(awk '{print $1}' lvm2/VERSION)
+	msg "LVM2 Full Version: $version"
 	# skip old "cvs" releases
 	case "$version" in
 	*-cvs)
-		continue
+		msg "$version is CVS tag, skip"
+		return
 		;;
 	esac
 
 	# already present locally
-	test -d $version && continue
+	if [ -d $version ]; then
+		msg "dir '$version' exists, skip"
+		return
+	fi
 
-	./bin/generate_field_data lvm2 || echo FAILED
+	# dir where attributes get saved
+	lvm_dir=$version
+
+	# remove -git suffix
+	version=${version%-git}
+	git_branch=LVM-${version}
+
+	# check that local branch isn't already created
+	if git show-ref --verify --quiet refs/heads/$git_branch; then
+		msg "Git branch '$git_branch' already exists; skip"
+		return
+	fi
+
+	./bin/generate_field_data lvm2
+
+	attr_dir=lib/lvm/attributes/${version}
+	if [ -d "$attr_dir" ]; then
+		msg "$attr_dir already exists, skip"
+	fi
+	mv $lvm_dir $attr_dir
+
+	git add -A $attr_dir
+	git checkout -b $git_branch next
+	git commit -am "Added $tag attributes"
+}
+
+
+GIT_DIR=$git_dir clone_lvm2
+
+if [ "$1" = "-a" ]; then
+	# obtain all versions
+	set -- $(GIT_DIR=$git_dir git tag -l $pattern)
+fi
+
+# it shouldn't be exported, but somewhy is. unset
+unset GIT_DIR
+
+# process versions specified on commandline,
+# otherwise iterate over all LVM2 tags
+for tag in "$@"; do
+	process_lvm2_version $tag
 done
