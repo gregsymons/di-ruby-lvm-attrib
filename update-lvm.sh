@@ -59,7 +59,7 @@ process_lvm2_version() {
 	# already present in source tree
 	if [ -d lib/lvm/attributes/$tag ]; then
 		msg "lib/lvm/attributes/$tag already exists, skip"
-		return
+		return 1
 	fi
 
 	msg "Checkout LVM2 $tag"
@@ -73,14 +73,14 @@ process_lvm2_version() {
 	case "$version" in
 	*-cvs)
 		msg "$version is CVS tag, skip"
-		return
+		return 1
 		;;
 	esac
 
 	# already present locally
 	if [ -d $version ]; then
 		msg "dir '$version' exists, skip"
-		return
+		return 1
 	fi
 
 	# dir where attributes get saved
@@ -93,7 +93,7 @@ process_lvm2_version() {
 	# check that local branch isn't already created
 	if git show-ref --verify --quiet refs/heads/$git_branch; then
 		msg "Git branch '$git_branch' already exists; skip"
-		return
+		return 1
 	fi
 
 	./bin/generate_field_data lvm2
@@ -101,12 +101,15 @@ process_lvm2_version() {
 	attr_dir=lib/lvm/attributes/${version}
 	if [ -d "$attr_dir" ]; then
 		msg "$attr_dir already exists, skip"
+		return 1
 	fi
 	mv $lvm_dir $attr_dir
 
 	git add -A $attr_dir
 	git checkout -b $git_branch next
 	git commit -am "Added $tag attributes"
+
+	return 0
 }
 
 
@@ -123,5 +126,11 @@ unset GIT_DIR
 # process versions specified on commandline,
 # otherwise iterate over all LVM2 tags
 for tag in "$@"; do
-	process_lvm2_version $tag
+	process_lvm2_version $tag || continue
+	updated=1
 done
+
+if [ -z "$updated" ]; then
+	echo >&2 "Nothing updated"
+	exit 1
+fi
