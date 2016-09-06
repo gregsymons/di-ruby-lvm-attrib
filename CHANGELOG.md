@@ -1,8 +1,8 @@
-# 0.0.27 (2016-09-06
+# 0.0.27 (2016-09-06)
 - Added LVM attributes for version 2.02.161(2)
 - Added LVM attributes for version 2.02.158(2)
 - Reworked update script to use git submodules rather than relying on the user
-  to check out the LVM source.
+  to check out the LVM source. #47
 - Added LVM attributes for version 2.0.2.133(2)
 
 # 0.0.26 (2016-05-12)
