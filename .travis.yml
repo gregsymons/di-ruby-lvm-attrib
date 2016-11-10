@@ -1,0 +1,15 @@
+language:
+  ruby
+
+git:
+  submodules: false
+
+rvm:
+  - '2.3'
+  - '2.2'
+  - '2.1'
+  - '2.0'
+  - '1.9'
+  - '1.8'
+
+# vim:ft=yaml:et:ts=2:sw=2
