@@ -1,3 +1,6 @@
+# 0.0.28 (2017-07-09)
+- Updated generate_field_data to support new report object type
+
 # 0.0.27 (2016-09-06)
 - Added LVM attributes for version 2.02.161(2)
 - Added LVM attributes for version 2.02.158(2)
