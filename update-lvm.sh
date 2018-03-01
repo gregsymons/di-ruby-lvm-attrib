@@ -26,7 +26,7 @@
 #   `next` branch -- NOT MASTER!**
 #
 
-repo_url=git://git.fedorahosted.org/git/lvm2.git
+repo_url=git://sourceware.org/git/lvm2.git
 refs=refs/heads/master:refs/remotes/origin/master
 pattern=v2_02_*
 git_dir=lvm2/.git
